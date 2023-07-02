@@ -14,19 +14,19 @@ public class DrinkingAgeCalculator {
 	}
 	
 	public boolean CanDrinkLiquer(Person p) {
-		if(p == null) throw new IllegalArgumentException("Person can't be null!");
-		LocalDate now = LocalDate.now(clock);
-		long years = ChronoUnit.YEARS.between(p.getBirthday(), now);
-		if(years < 0) throw new IllegalArgumentException("Person can't not been born yet");
-		return years >= liqueurDrinkingAge;
+		return CanDrink(p, this.liqueurDrinkingAge);
 	}
 	
 	public boolean CanDrinkBeer(Person p) {
+		return CanDrink(p, this.beerDrinkingAge);
+	}
+	
+	private boolean CanDrink(Person p, long ageLimit) {
 		if(p == null) throw new IllegalArgumentException("Person can't be null!");
 		LocalDate now = LocalDate.now(clock);
 		long years = ChronoUnit.YEARS.between(p.getBirthday(), now);
 		if(years < 0) throw new IllegalArgumentException("Person can't not been born yet");
-		return years >= beerDrinkingAge;
+		return years >= ageLimit;
 	}
 	
 
