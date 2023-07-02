@@ -19,7 +19,7 @@ class DrinkingBuddiesTest {
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		p1 = new Person("Anna" , "Anneliese", LocalDate.of(2000, 11, 23));
-		p2 = new Person("Bob", "Bobalski", LocalDate.of(2006, 5, 3));
+		p2 = new Person("Bob", "Bobalski", LocalDate.of(2012, 5, 3));
 		p3 = new Person("Carl", "Carlington", LocalDate.of(2005, 7, 4));
 		p4 = new Person("Derril", "Lirred", LocalDate.of(2005, 7, 2));
 		p5 = new Person("Emon", "Nome", LocalDate.of(2024, 12, 6));
@@ -29,32 +29,42 @@ class DrinkingBuddiesTest {
 
 	@Test
 	void testP1() {
-		Assertions.assertTrue(calc.CanDrink(p1));
+		Assertions.assertTrue(calc.CanDrinkLiquer(p1));
+		Assertions.assertTrue(calc.CanDrinkBeer(p1));
 	}
 	
 	@Test
 	void testP2() {
-		Assertions.assertFalse(calc.CanDrink(p2));
+		Assertions.assertFalse(calc.CanDrinkLiquer(p2));
+		Assertions.assertFalse(calc.CanDrinkBeer(p2));
 	}
 	@Test
 	void testP3() {
-		Assertions.assertFalse(calc.CanDrink(p3));
+		Assertions.assertFalse(calc.CanDrinkLiquer(p3));
+		Assertions.assertTrue(calc.CanDrinkBeer(p3));
 	}
 	@Test
 	void testP4() {
-		Assertions.assertTrue(calc.CanDrink(p4));
+		Assertions.assertTrue(calc.CanDrinkLiquer(p4));
+		Assertions.assertTrue(calc.CanDrinkBeer(p4));
 	}
 	@Test
 	void testP5() {
 		Throwable ex = Assertions.assertThrows(IllegalArgumentException.class, 
-				() -> {calc.CanDrink(p5);});
+				() -> {calc.CanDrinkLiquer(p5);});
 		Assertions.assertTrue(ex.getMessage().contains("Person can't not been born yet"));
+		Throwable ex2 = Assertions.assertThrows(IllegalArgumentException.class, 
+				() -> {calc.CanDrinkBeer(p5);});
+		Assertions.assertTrue(ex2.getMessage().contains("Person can't not been born yet"));
 	}
 	
 	@Test
 	void testNull() {
 		Throwable ex = Assertions.assertThrows(IllegalArgumentException.class, 
-				() -> {calc.CanDrink(null);});
+				() -> {calc.CanDrinkLiquer(null);});
 		Assertions.assertTrue(ex.getMessage().contains("Person can't be null!"));
+		Throwable ex2 = Assertions.assertThrows(IllegalArgumentException.class, 
+				() -> {calc.CanDrinkBeer(null);});
+		Assertions.assertTrue(ex2.getMessage().contains("Person can't be null!"));
 	}
 }
